@@ -1,0 +1,92 @@
+{
+  "robomimic_can_failure.zarr.zip": {
+    "domain": "robomimic",
+    "task": "can",
+    "outcome": "failure",
+    "num_episodes": 150,
+    "num_frames": 75000,
+    "size": 5940513420,
+    "sha256": "5e1335f7d2e1138010a70369d67f3ddf8a3192799874de6baa50e30699a4cef1"
+  },
+  "robomimic_can_success.zarr.zip": {
+    "domain": "robomimic",
+    "task": "can",
+    "outcome": "success",
+    "num_episodes": 40,
+    "num_frames": 12861,
+    "size": 1054547996,
+    "sha256": "e6365b1e2972c2a0edc142844999424bda5242e261b8976a7d9a0b7e394dfd23"
+  },
+  "robomimic_square_failure.zarr.zip": {
+    "domain": "robomimic",
+    "task": "square",
+    "outcome": "failure",
+    "num_episodes": 150,
+    "num_frames": 75000,
+    "size": 4794095126,
+    "sha256": "6c2405a975609656f92e2a68f7e45f6c0c988f59ca7d3f716cf1bda73a27f4cf"
+  },
+  "robomimic_square_success.zarr.zip": {
+    "domain": "robomimic",
+    "task": "square",
+    "outcome": "success",
+    "num_episodes": 40,
+    "num_frames": 14951,
+    "size": 962560617,
+    "sha256": "40edf42812955bff8b99c9f4dbd98c85f0da5674d278275db1ea07115ea5c7a8"
+  },
+  "robomimic_transport_failure.zarr.zip": {
+    "domain": "robomimic",
+    "task": "transport",
+    "outcome": "failure",
+    "num_episodes": 150,
+    "num_frames": 105000,
+    "size": 15067056295,
+    "sha256": "74c8abc9b85cf8b12ba07530b2733e7016a3f0dd6cfd8cdd3fcc2df2bbf423db"
+  },
+  "robomimic_transport_success.zarr.zip": {
+    "domain": "robomimic",
+    "task": "transport",
+    "outcome": "success",
+    "num_episodes": 40,
+    "num_frames": 31660,
+    "size": 4471314705,
+    "sha256": "ce3718a1e99f232c3fe85441937737d15767c4b379a0210e39756b48c7a65c46"
+  },
+  "umi_dish_failure.zarr.zip": {
+    "domain": "umi",
+    "task": "dish",
+    "outcome": "failure",
+    "num_episodes": 59,
+    "num_frames": 37360,
+    "size": 1500435551,
+    "sha256": "6d54c72bc5438d77608c7c5ef58696fcccf7457293778d3a24453a9be06d8111"
+  },
+  "umi_dish_success.zarr.zip": {
+    "domain": "umi",
+    "task": "dish",
+    "outcome": "success",
+    "num_episodes": 179,
+    "num_frames": 174694,
+    "size": 7193478514,
+    "sha256": "62548fc2a063c883bb0e872da010df421e6f30d9d33ec40823dc55a4ccea4585"
+  },
+  "umi_sweater_failure.zarr.zip": {
+    "domain": "umi",
+    "task": "sweater",
+    "outcome": "failure",
+    "num_episodes": 78,
+    "num_frames": 103803,
+    "size": 4651637783,
+    "sha256": "adda07b3f69e0899204add1cbdab6cd3aba9380e4d26a79e65f079440f96baef"
+  },
+  "umi_sweater_success.zarr.zip": {
+    "domain": "umi",
+    "task": "sweater",
+    "outcome": "success",
+    "num_episodes": 108,
+    "num_frames": 243438,
+    "size": 10905290461,
+    "sha256": "096451120077d7e128f1e04597ccd640aa6eff78ce8208fb06c424ce10460848"
+  }
+}

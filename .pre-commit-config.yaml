@@ -1,0 +1,26 @@
+# Installed by install_deps.sh. Run on everything with: pre-commit run --all-files
+# Ruff rules live in pyproject.toml ([tool.ruff]). The ruff hooks run the ruff of the
+# active environment, so its version is pinned once, in the dev group of pyproject.toml
+# (and uv.lock): activate the needlework environment before committing.
+repos:
+  - repo: local
+    hooks:
+      - id: ruff-check
+        name: ruff check
+        entry: ruff check --fix
+        language: system
+        types_or: [python, pyi]
+      - id: ruff-format
+        name: ruff format
+        entry: ruff format
+        language: system
+        types_or: [python, pyi]
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-yaml
+      - id: check-toml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-added-large-files
+        args: [--maxkb=1024]

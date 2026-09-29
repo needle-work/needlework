@@ -1,0 +1,13 @@
+# Inverse dynamics model: the policy's U-Net and DDIM, conditioned on the observation
+# history and a goal frame through MLPs; proposes the executable rows of a window.
+defaults:
+  - policy@_here_
+  - _self_
+
+name: idm
+train:
+  epochs: ${task.epochs.idm}
+  batch_size: 128
+hidden: [256, 256]         # each conditioning MLP
+validation:
+  val_ratio: 0.1           # of all episodes, held out from training

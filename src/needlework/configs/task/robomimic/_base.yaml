@@ -1,0 +1,28 @@
+domain: robomimic
+name: ???
+stride: 1                  # frames between consecutive window rows
+relative_actions: false    # actions are absolute world-frame targets
+action_identity: []        # action parts left unnormalized
+role_weights: {skipped: 0.5, twin: 0.5, failure_departure: 0.5, approach: 1.0}  # sampler.role_weights
+epoch_length: windows  # sampler.epoch_length
+sampler_options: {path_start: repeat_current, twin_rows: all, draw: with_replacement, source_rows: supervised, after_departure: skipped}  # sampler.options
+# Full stitch budget: every eligible source, adjacent frames allowed.
+stitch_sources_per_stage: 100000
+stitch_candidate_spacing: 1   # raw frames
+stitch_targets_per_source: {stage1: 100, stage2: 200, stage3: 8}
+stitch_max_candidates_per_stage: {stage1: 100000, stage2: 100000, stage3: 100000}
+stitch_threshold_offsets: {stage1: 0.0, stage2: 0.0, stage3: 0.0}
+stitch_keep_fraction: {stage1: 1.0, stage2: 1.0, stage3: 1.0}
+verifier_serving:          # positives hold at the goal,
+  mode: label_dependent    # negatives continue; the action tail reveals the label
+epochs:
+  policy: 300
+  idm: 150
+  verifier: 40
+eval:                      # simulator rollouts, on the EMA model
+  every: 25                # epochs
+  seeds: [0, 1, 2, 3, 4]
+  episodes_per_seed: 10
+  n_envs: 8                # simulator worker processes
+  construction_seed: 12345 # worker k builds its env with seed 12345 + k
+  max_steps: ???

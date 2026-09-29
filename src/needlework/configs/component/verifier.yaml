@@ -1,0 +1,28 @@
+# Verifier: per-step "goal reached" logits for (source, goal, action chunk).
+name: verifier
+train:
+  epochs: ${task.epochs.verifier}
+  batch_size: 1024
+model:
+  hidden: 512
+  layers: 2
+  heads: 4
+  ff_mult: 8
+sampling:                  # one group per window with a future step, per epoch
+  n_negatives: 7           # per within_hor_pos positive, each with its own source
+  negative_ratio: {beyond_hor_neg: 2, cross_traj_neg: 1}
+  boundary_prob: 0.25      # beyond_hor_neg fallback: probability of the boundary band
+  boundary_horizons: 2     # boundary band: goals in (H, boundary_horizons * H]
+  serving: ${task.verifier_serving}  # how actions are served; per domain
+  negative_draw: within_group  # or epoch_wide: see verifier_pairs.py
+  proximity:               # hard-negative goal tables (sampling/proximity.py)
+    tau_percentile: 5.0    # cutoff: this percentile of within-episode H-step cosine
+    shells: 5              # halvings of 1 - cos towards cos = 1, plus one far shell
+    max_targets: 500       # candidates kept per source, over all shells
+    candidate_pool: 1000   # cross_traj_neg frames scored per source, doubled as needed
+  seed: {train: 42, val: 1042}
+calibration:
+  target_fpr: 0.01
+  min_negatives: 200       # per step
+validation:
+  val_ratio: 0.1           # of all episodes, held out from training

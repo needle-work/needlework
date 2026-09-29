@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+
+# Tool caches
+.pytest_cache/
+.ruff_cache/
+
+# Data, runs, and logs belong under $NEEDLEWORK_ROOT, never in the checkout.
+*.zarr
+*.zarr.zip
+*.hdf5
+*.ckpt
+*.pth
+wandb/
+outputs/
+MUJOCO_LOG.TXT
+
+# Keep these tracked even where a parent ignore file excludes data/ or *.json.
+!/src/needlework/data/
+!/src/needlework/data/datasets.json

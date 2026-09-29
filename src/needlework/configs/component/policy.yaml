@@ -1,0 +1,20 @@
+# Diffusion policy: DINOv3 spatial-softmax features + proprioception -> action chunk.
+name: policy
+train:
+  epochs: ${task.epochs.policy}
+  batch_size: 64
+unet:
+  down_dims: [512, 1024, 2048]
+  step_embed_dim: 256
+  kernel_size: 5
+  n_groups: 8
+scheduler:
+  train_steps: 50
+  beta_start: 1.0e-4
+  beta_end: 0.02
+  beta_schedule: squaredcos_cap_v2
+inference_steps: 10
+validation:
+  val_ratio: 0.02          # of success episodes, held out from training
+  action_mse_every: 5      # epochs
+  action_mse_windows: 256  # fixed windows per split

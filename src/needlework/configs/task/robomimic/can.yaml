@@ -1,0 +1,19 @@
+defaults:
+  - robomimic/_base@_here_
+  - _self_
+
+name: can
+epochs:
+  idm: 300
+obs:
+  cameras: [agentview_image, robot0_eye_in_hand_image]
+  proprio: [robot0_eef_pos, robot0_eef_quat, robot0_gripper_qpos]
+proprio_identity: [robot0_eef_quat]
+eval:
+  max_steps: 500
+
+stitch_targets_per_source: {stage3: 16}
+stitch_max_candidates_per_stage: {stage1: 100000, stage2: 100000, stage3: 1000000}
+bridge_weight: 0.18  # sampling weight of a departure window (sampler.bridge_weight)
+stitch_threshold_offsets: {stage1: 0.0, stage2: 0.0, stage3: -1.5}
+stitch_keep_fraction: {stage1: 0.02, stage2: 0.06, stage3: 0.4}

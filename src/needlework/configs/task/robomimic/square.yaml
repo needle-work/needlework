@@ -1,0 +1,15 @@
+defaults:
+  - robomimic/_base@_here_
+  - _self_
+
+name: square
+obs:
+  cameras: [agentview_image, robot0_eye_in_hand_image]
+  proprio: [robot0_eef_pos, robot0_eef_quat, robot0_gripper_qpos]
+proprio_identity: [robot0_eef_quat]
+eval:
+  max_steps: 500
+
+bridge_weight: 0.14  # sampling weight of a departure window (sampler.bridge_weight)
+stitch_threshold_offsets: {stage1: 0.0, stage2: 0.0, stage3: -6.0}
+stitch_keep_fraction: {stage1: 1.0, stage2: 0.05, stage3: 0.4}

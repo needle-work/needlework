@@ -1,0 +1,25 @@
+# Offline stitching. Models must be final release checkpoints for the selected task.
+defaults:
+  - task: ???
+  - _self_
+idm_checkpoint: ???
+verifier_checkpoint: ???
+run:
+  name: ???
+gpus: [0]                 # CUDA ordinals inside CUDA_VISIBLE_DEVICES
+seed: 42
+stages: [1, 2, 3]
+sources_per_stage: ${task.stitch_sources_per_stage}  # temporally spaced, episode-balanced source budget
+candidate_spacing: ${task.stitch_candidate_spacing}  # raw frames between sources, and between one source's targets
+targets_per_source: ${task.stitch_targets_per_source}  # every stage in `stages` needs one
+max_candidates_per_stage: ${task.stitch_max_candidates_per_stage}  # source-uniform cap; null = no cap
+threshold_offsets: ${task.stitch_threshold_offsets}  # per stage, added to the verifier's calibrated thresholds
+keep_fraction: ${task.stitch_keep_fraction}  # per stage, the fraction of packed bridges kept by margin
+batch_size: 32           # batch boundaries are part of the resume contract, so a resume cannot change this
+min_steps_saved: 25      # policy steps (stride raw frames each), including the target suffix
+proposals: 8             # IDM action samples per candidate pair
+min_votes: 2             # distinct samples that must have an accepted prefix
+recovery_quantile: 0.9   # failure sources at least this far from the successes
+proximity:               # visual candidate search, set apart from the verifier's
+  tau_percentile: 5.0    # cutoff: this percentile of within-episode H-step cosine
+  shells: 5              # halvings of 1 - cos towards cos = 1, plus one far shell

@@ -1,0 +1,6 @@
+name: augmented
+bridges: ???
+bridge_weight: ${task.bridge_weight}  # weight of a success departure window; other windows weigh by role (sampling/roles.py)
+role_weights: ${task.role_weights}  # skipped, twin, failure_departure, approach (sampling/roles.py)
+epoch_length: ${task.epoch_length}  # windows: one draw per sampled window; logged: the logged dataset's length
+options: ${task.sampler_options}  # path_start, twin_rows, draw (sampling/augmented_dataset.py)

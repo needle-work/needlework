@@ -1,0 +1,39 @@
+# Root of every training run. Composition order, later wins:
+#   train.yaml < component < task < sampler < command line
+defaults:
+  - component: ???   # policy, idm or verifier
+  - task: ???        # robomimic/{can,square,transport} or umi
+  - sampler: normal
+  - _self_
+
+seed:
+  dataset: 42        # train/val episode split
+  training: 42       # initialization, batch order, diffusion noise
+horizon:
+  prediction: 24     # action rows predicted per call
+  obs: 2             # observation steps conditioned on
+  execute: 12        # rows executed per call, from the current step on
+run:
+  name: ???          # run directory suffix and W&B run name
+logging:
+  wandb:
+    enabled: false   # true needs `wandb login` first; checked before any work
+    project: needlework
+    entity: null     # null: the logged-in account's default entity
+determinism:
+  strict: true       # deterministic kernels; set false to trade exactness for speed
+checkpoint:
+  every: 25          # epochs; the last epoch is always saved
+  policy_snapshots: 2  # policy EMA snapshots kept besides last.ckpt (selected.json)
+optim:               # AdamW, cosine schedule with warmup; the same for every component
+  lr: 1.0e-4
+  betas: [0.95, 0.999]
+  eps: 1.0e-8
+  weight_decay: 1.0e-6
+  warmup_steps: 500
+  clip_grad: 1.0
+ema:                 # weights every evaluation and checkpoint consumer uses
+  inv_gamma: 1.0
+  power: 0.75
+  min_value: 0.0
+  max_value: 0.9999

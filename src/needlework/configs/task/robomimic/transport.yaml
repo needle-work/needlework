@@ -1,0 +1,28 @@
+defaults:
+  - robomimic/_base@_here_
+  - _self_
+
+name: transport
+obs:
+  cameras:  # render and encoder batch order
+    - shouldercamera0_image
+    - robot0_eye_in_hand_image
+    - shouldercamera1_image
+    - robot1_eye_in_hand_image
+  proprio:
+    - robot0_eef_pos
+    - robot0_eef_quat
+    - robot0_gripper_qpos
+    - robot1_eef_pos
+    - robot1_eef_quat
+    - robot1_gripper_qpos
+proprio_identity: [robot0_eef_quat, robot1_eef_quat]
+eval:
+  max_steps: 700
+
+bridge_weight: 0.967  # sampling weight of a departure window (sampler.bridge_weight)
+role_weights: {skipped: 1.0, twin: 0.0, failure_departure: '${task.bridge_weight}', approach: '${task.bridge_weight}'}
+epoch_length: logged  # sampler.epoch_length
+sampler_options: {path_start: aligned, twin_rows: own_source, draw: rounded_passes, source_rows: masked, after_departure: all}  # sampler.options
+stitch_threshold_offsets: {stage1: 0.0, stage2: -6.0, stage3: -8.0}
+stitch_keep_fraction: {stage1: 1.0, stage2: 0.1, stage3: 1.0}

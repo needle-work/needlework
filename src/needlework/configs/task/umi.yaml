@@ -1,0 +1,47 @@
+# One config for every UMI dataset: the task name only selects the store.
+domain: umi
+name: ???                    # sweater, dish, or any store under data/umi/
+stride: 3                    # frames between consecutive window rows
+relative_actions: true       # actions relative to the gripper pose at the current step
+bridge_weight: 0.25          # sampling weight of a departure window (sampler.bridge_weight)
+role_weights: {skipped: 0.5, twin: 0.5, failure_departure: 0.5, approach: 1.0}  # sampler.role_weights
+epoch_length: windows        # sampler.epoch_length
+sampler_options: {path_start: aligned, twin_rows: all, draw: with_replacement, source_rows: masked, after_departure: all}  # repeat_current needs stride-1 absolute actions
+action_identity: [rotation_6d]
+stitch_sources_per_stage: 1024
+stitch_candidate_spacing: 69    # raw frames; one proposal horizon (23 steps x stride 3)
+stitch_targets_per_source: {stage1: 8, stage2: 8, stage3: 8}
+stitch_max_candidates_per_stage: {stage1: null, stage2: null, stage3: null}
+stitch_threshold_offsets: {stage1: 0.0, stage2: 0.0, stage3: 0.0}
+stitch_keep_fraction: {stage1: 1.0, stage2: 1.0, stage3: 1.0}
+verifier_serving:            # each example holds with this probability, whatever its label
+  mode: independent
+  hold_probability: 0.5
+start_noise: 0.05            # std of the episode-start pose noise, training only
+epochs:
+  policy: 500
+  idm: 150
+  verifier: 40
+obs:
+  cameras: [camera_left_main_rgb, camera_right_main_rgb]
+  proprio:
+    - gripper_left_eef_pos
+    - gripper_left_eef_rot_6d
+    - gripper_left_gripper_width
+    - gripper_left_eef_rot_6d_wrt_start
+    - gripper_left_eef_pos_wrt_gripper_right
+    - gripper_left_eef_rot_6d_wrt_gripper_right
+    - gripper_right_eef_pos
+    - gripper_right_eef_rot_6d
+    - gripper_right_gripper_width
+    - gripper_right_eef_rot_6d_wrt_start
+    - gripper_right_eef_pos_wrt_gripper_left
+    - gripper_right_eef_rot_6d_wrt_gripper_left
+proprio_identity:
+  - gripper_left_eef_rot_6d
+  - gripper_left_eef_rot_6d_wrt_start
+  - gripper_left_eef_rot_6d_wrt_gripper_right
+  - gripper_right_eef_rot_6d
+  - gripper_right_eef_rot_6d_wrt_start
+  - gripper_right_eef_rot_6d_wrt_gripper_left
+
